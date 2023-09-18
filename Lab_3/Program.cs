@@ -21,12 +21,20 @@
             family.AddMember(person);
         }
         Person OldestMember = family.GetOldestMember();
-        Console.WriteLine(OldestMember);
+        Console.WriteLine(OldestMember + "\n");
+
+        List<Person> olderThan30 = family.More_than_30_years();
+        olderThan30.Sort((person1, person2) => person1.Name.CompareTo(person2.Name));
+        for(int i = 0;i < olderThan30.Count;i++)
+        {
+            Console.WriteLine(olderThan30[i]);
+        }
+       
     }
 }
 public class Person
 {
-    private string Name { set; get; }
+    public string Name { set; get; }
     public int Age { set; get; }
     public Person(string name, int age)
     {
@@ -67,5 +75,16 @@ public class Family
 
         }
         return family[older_index];
+    }
+    public List<Person> More_than_30_years()
+    {
+        List<Person> people = new List<Person>();
+        for (int i = 0; i < family.Count; i++) {
+            Person person = family[i];
+            if (person.Age > 30) {
+                people.Add(person);
+            }
+        }
+        return people;
     }
 }
